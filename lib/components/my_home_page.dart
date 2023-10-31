@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './generator_page.dart';
 import './favorites_page.dart';
+import './demo_page.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -21,6 +22,9 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
       case 1:
         page = FavoritesPage();
+        break;
+      case 2:
+        page = DemoPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -56,6 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icon(Icons.favorite),
                         label: 'Favorites',
                       ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.access_alarm),
+                        label: 'Datatable',
+                      ),
                     ],
                     currentIndex: selectedIndex,
                     onTap: (value) {
@@ -81,6 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       NavigationRailDestination(
                         icon: Icon(Icons.favorite),
                         label: Text('Favorites'),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.access_alarm),
+                        label: Text('Datatable'),
                       ),
                     ],
                     selectedIndex: selectedIndex,
