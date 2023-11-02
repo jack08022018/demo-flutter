@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './my_app_state.dart';
-import './big_card.dart';
-import './history_list_view.dart';
+import '../../layouts/main_layout_state.dart';
+import 'components/big_card.dart';
+import 'components/history_list_view.dart';
 
 class GeneratorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
+    var appState = context.watch<MainLayoutState>();
     var pair = appState.current;
 
     IconData icon;

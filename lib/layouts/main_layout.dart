@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import './generator_page.dart';
-import './favorites_page.dart';
-import './demo_page.dart';
+import 'package:provider/provider.dart';
+import '../pages/generator/generator_page.dart';
+import '../pages/favorites/favorites_page.dart';
+import '../pages/demo/demo_page.dart';
+import '../pages/demo/demo_state.dart';
 
-class MyHomePage extends StatefulWidget {
+class MainLayout extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MainLayout> createState() => _MainLayoutState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainLayoutState extends State<MainLayout> {
   var selectedIndex = 0;
 
   @override
@@ -24,7 +26,9 @@ class _MyHomePageState extends State<MyHomePage> {
         page = FavoritesPage();
         break;
       case 2:
-        page = DemoPage();
+        page = ChangeNotifierProvider(
+            create: (context) => DemoState(), 
+            child: DemoPage());
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');

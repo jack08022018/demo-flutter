@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../demo_state.dart';
 
 class DataTableExample extends StatelessWidget {
   const DataTableExample({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var demoState = context.watch<DemoState>();
+
     return DataTable(
       columns: const <DataColumn>[
         DataColumn(
@@ -32,29 +36,15 @@ class DataTableExample extends StatelessWidget {
           ),
         ),
       ],
-      rows: const <DataRow>[
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Sarah')),
-            DataCell(Text('19')),
-            DataCell(Text('Student')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Janine')),
-            DataCell(Text('43')),
-            DataCell(Text('Professor')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('William')),
-            DataCell(Text('27')),
-            DataCell(Text('Associate Professor')),
-          ],
-        ),
-      ],
+      rows: List.generate(
+          demoState.staffList.length,
+          (index) => DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(demoState.staffList[index]["name"] ?? "")),
+                  DataCell(Text(demoState.staffList[index]["age"] ?? "")),
+                  DataCell(Text(demoState.staffList[index]["role"] ?? "")),
+                ],
+              )),
     );
   }
 }
