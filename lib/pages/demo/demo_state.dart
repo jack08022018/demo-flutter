@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
 
 class DemoState extends ChangeNotifier {
-  var staffList = [
-    {"name": "Sarah", "age": "19", "role": "Student"},
-    {"name": "Janine", "age": "43", "role": "Professor"},
-    {"name": "William", "age": "27", "role": "Associate Professor"},
-  ];
+  List<dynamic> staffList = <dynamic>[];
 
   GlobalKey? historyListKey;
+
+  Future<void> getStaffList() async {
+    try {
+      Response response = await post(Uri.http('localhost:9195', '/demo/api/getStaffList'));
+      // print(response.body);
+      staffList = jsonDecode(response.body);
+    } catch (e) {
+      print('Caught error: $e');
+    }
+    notifyListeners();
+  }
+
+  // Future<void> getStaffList() async {
+  //   try {
+  //     final dio = Dio();
+  //     final response = await dio.post('http://localhost:9195/demo/api/getStaffList');
+  //     print(response.data);
+  //   } catch (e) {
+  //     print('Caught error: $e');
+  //   }
+  // }
 
   void addItem(item) {
     staffList.add(item);

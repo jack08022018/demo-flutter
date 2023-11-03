@@ -26,16 +26,12 @@ class _MainLayoutState extends State<MainLayout> {
         page = FavoritesPage();
         break;
       case 2:
-        page = ChangeNotifierProvider(
-            create: (context) => DemoState(), 
-            child: DemoPage());
+        page = ChangeNotifierProvider(create: (context) => DemoState(), child: DemoPage());
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
-    // The container for the current page, with its background color
-    // and subtle switching animation.
     var mainArea = ColoredBox(
       color: colorScheme.surfaceVariant,
       child: AnimatedSwitcher(
@@ -48,8 +44,6 @@ class _MainLayoutState extends State<MainLayout> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 450) {
-            // Use a more mobile-friendly layout with BottomNavigationBar
-            // on narrow screens.
             return Column(
               children: [
                 Expanded(child: mainArea),

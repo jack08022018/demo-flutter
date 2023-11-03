@@ -12,13 +12,18 @@ class DemoPage extends StatelessWidget {
     var pair = appState.current;
 
     return Center(
-      child:
-        Column(mainAxisAlignment: MainAxisAlignment.center, 
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, 
         children: [
           DataTableExample(),
           ElevatedButton(
             onPressed: () {
-              demoState.addItem({"name": pair.toString(), "age": "27", "role": "Associate Professor"});
+              demoState.getStaffList();
+              // demoState.addItem({
+              //   "name": pair.toString(),
+              //   "age": "27",
+              //   "role": "Associate Professor"
+              // });
             },
             child: Text('Add'),
           )

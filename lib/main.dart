@@ -8,14 +8,7 @@ void main() {
   runApp(MyApp());
 }
 
-typedef FetchTime = void Function();
-
 class MyApp extends StatelessWidget {
-  // const MyApp({super.key});
-  // final store = Store<AppState>(reducer,
-  //     initialState: AppState.initialState(),
-  //     middleware: [thunkMiddleware]);
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
