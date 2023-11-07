@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './components/datatable_example.dart';
-import './demo_state.dart';
+import 'components/datatable_example.dart';
+import 'demo_state.dart';
 import '../../layouts/main_layout_state.dart';
 
 class DemoPage extends StatelessWidget {
@@ -18,17 +18,13 @@ class DemoPage extends StatelessWidget {
           DataTableExample(),
           ElevatedButton(
             onPressed: () {
-              demoState.getStaffList();
-              // demoState.addItem({
-              //   "name": pair.toString(),
-              //   "age": "27",
-              //   "role": "Associate Professor"
-              // });
+              demoState.getDataFromServer();
             },
             child: Text('Add'),
-          )
+          ),
         ]
       )
     );
   }
+
 }
