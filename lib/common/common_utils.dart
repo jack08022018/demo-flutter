@@ -1,34 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:either_dart/either.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'app_errors.dart';
 
-// Utility function to display a simple error dialog
-void showErrorDialog(BuildContext context, String message) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('Error'),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            child: Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-
-void showError(String errorMessage) {
-  Fluttertoast.showToast(
+Future<void> showError(String errorMessage) {
+  return Fluttertoast.showToast(
       msg: errorMessage,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.CENTER,
@@ -39,15 +17,16 @@ void showError(String errorMessage) {
       fontSize: 16.0);
 }
 
-Future<Either<CommonError, http.Response>> callApi(Future<http.Response> request) async {
+Future<Either<CommonError, Response>> callApi(
+    Future<Either<CommonError, Response>> excuteApi) async {
   try {
-    return Right(await request);
+    return await excuteApi;
   } catch (e) {
     return Left(CommonError(message: "Request executing with errors: $e"));
   }
 }
 
-Either<CommonError, http.Response> checkHttpStatus(http.Response response) {
+Either<CommonError, Response> checkHttpStatus(Response response) {
   if (response.statusCode == 200) return Right(response);
   if (response.statusCode >= 500) {
     return Left(CommonError(
@@ -56,7 +35,7 @@ Either<CommonError, http.Response> checkHttpStatus(http.Response response) {
   return Left(CommonError(message: "Bad http status ${response.statusCode}"));
 }
 
-Future<Either<CommonError, dynamic>> parseJson(http.Response response) async {
+Either<CommonError, dynamic> parseJson(Response response) {
   try {
     final jsonResult = jsonDecode(response.body);
     return Right(jsonResult);

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'components/datatable_example.dart';
 import 'demo_state.dart';
-import '../../layouts/main_layout_state.dart';
+// import '../../layouts/main_layout_state.dart';
 
 class DemoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var demoState = context.watch<DemoState>();
-    var appState = context.watch<MainLayoutState>();
-    var pair = appState.current;
+    // var appState = context.watch<MainLayoutState>();
+    // var pair = appState.current;
 
     return Center(
       child: Column(
@@ -18,7 +18,7 @@ class DemoPage extends StatelessWidget {
           DataTableExample(),
           ElevatedButton(
             onPressed: () {
-              demoState.getDataFromServer();
+              demoState.getStaffListNew();
             },
             child: Text('Add'),
           ),
