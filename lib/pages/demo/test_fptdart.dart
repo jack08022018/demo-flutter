@@ -22,7 +22,7 @@ class DemoState extends ChangeNotifier {
     }
   }
 
-  // Either<Exception, String> callApiFptdart() async {
+  // Future<Either<Exception, String>> callApiFptdart() async {
   //   return await Either<Exception, String>.tryCatch(() async {
   //     final requestBody = {'username': 'king'};
   //     final bodyEncode = jsonEncode(requestBody);

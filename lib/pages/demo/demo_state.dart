@@ -36,38 +36,32 @@ class DemoState extends ChangeNotifier {
   }
 
   Future<void> getStaffListNew() {
-    Future<Either<CommonError, Response>> excuteApi() async {
+    Future<Either<CommonError, String>> getBody() async {
       try {
         Map<String, dynamic> requestBody = {
           'username': 'king',
         };
-        var bodyEncode = jsonEncode(requestBody);
-        var response = await post(
-          Uri.http('localhost:9195', '/demo/api/getStaffList'),
-          headers: {'Content-Type': 'application/json'},
-          body: bodyEncode,
-        );
-        return Right(response);
+        return Right(jsonEncode(requestBody));
       } on Exception catch (e) {
-        return Left(
-            CommonError(message: 'Failed on excuteApi: ${e.toString()}'));
+        return Left(CommonError(message: 'Error in getStaffList getBody: ${e.toString()}'));
       }
     }
 
-    return excuteApi()
-        .thenRight(checkHttpStatus)
-        .thenRight(parseJson)
+    return getBody()
+        .thenRight((body) => postApi('/demo/api/getStaffList', body))
         .fold(
-          (left) => showError(left.message), 
+          (e) => null, 
           (right) {
-            // print('AAA: $right');
             staffList = right;
-            // notifyListeners();
+            notifyListeners();
+          });
+  }
 
-            Either<String, int> result = divide(10, 0);
-            result.fold((l) => print("LEFT: $l"), (r) => print("RIGHT: $r"));
-          }
-        );
+  void testEither() {
+    const List<int> list = [1, 2, 3, 4];
+    print("sum all: ${list.fold<int>(0, (p, c) => p + c)}");
+    print(
+        "sum e > 2: ${list.where((e) => e > 2).fold<int>(0, (p, c) => p + c)}");
   }
 
   Either<String, int> divide(int dividend, int divisor) {
